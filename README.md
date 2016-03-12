@@ -1,7 +1,7 @@
 Bindings Spider
 ======
 
-Dynamically map open windows to function keys for easy access. Avoids having to alt-tab through numerous windows to reach something commonly used (right now) windows, like the document editor or browser. 
+Dynamically map open windows to function keys for easy access. Avoids having to alt-tab through numerous windows to reach commonly used windows (at present), like the document editor or browser. 
 Can be called both for setting and calling saved windows; designed to be invoked via environmental keybinds.
 
 ##To use:
@@ -10,9 +10,14 @@ Can be called both for setting and calling saved windows; designed to be invoked
 3. Navigate to keyboard settings. For Gnome3 you can invoke "gnome-control-center keyboard". For each key slot desired, set a pair of bindings:
 
 >/path/to/spider.py set F2
-	Assign to Alt+F2
+ 
+* Assign to Alt+F2
+
 >/path/to/spider.py trigger F2
-	Assign to F2
+
+* Assign to F2
+
+Press the Setter key on a favorite window, do something else, press the Trigger key to focus back to it.
 
 Check -h for full syntax.
 
@@ -23,4 +28,4 @@ Can quickly assign a pattern related to the task at hand and avoid getting lost 
 Core functionality works and solution alleviates the problem addressed.
 
 * Note if the title of the mapped window changes and no longer includes the original name, the spider fetches nothing.
-* Possible change to allow interactive title setting, for now edit /tmp/<key>.binding directly if needed.
+* Possible change to allow interactive title setting, for now edit /tmp/KEY.binding directly if needed.
