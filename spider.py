@@ -4,7 +4,7 @@ import argparse
 '''Dynamically map open windows to function keys for easy access. Can be called both for setting and calling saved windows.
 Designed to be invoked via environment-wide keybindings.'''
 
-parser = argparse.ArgumentParser(description='Run with arguments of "<mode[set|trigger]>" "<button[F2-F4]>"')
+parser = argparse.ArgumentParser(description='-=- Run with arguments of "<mode[set|trigger]>" and "<button>"')
 parser.add_argument("mode")
 parser.add_argument("button")
 args = parser.parse_args()
@@ -12,17 +12,20 @@ args = parser.parse_args()
 destDir = "/tmp/"
 
 def saveWindowToKey (window, button):
+	'''Takes the name of a window, the keybind desired and saves for future use.'''
 	saveFile = open(destDir + button + ".binding", 'w')
 	saveFile.write(window)
 	saveFile.close()
 	print("-=- Window " + window + " mapped to " + button + ".")
 
 def triggerWindowOnKey (button):
+	'''Given a keybind button, raises the window mapped to it (if any)'''
 	saveFile = open(destDir + button + ".binding", 'r')
 	desiredWindow = saveFile.read()
 	raiseWindowCmd = "wmctrl -a " + desiredWindow
 	subprocess.Popen(raiseWindowCmd, shell=True, stdout=subprocess.PIPE)
 
+# Allows for being called as both a setter and a getter, defined with ARG1
 if args.mode == "set":
 	activeWindow = subprocess.Popen("xdotool getactivewindow getwindowname", shell=True, stdout=subprocess.PIPE).stdout.read().strip()
 	saveWindowToKey(activeWindow, args.button)
