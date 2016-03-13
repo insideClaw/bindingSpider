@@ -1,4 +1,4 @@
-Bindings Spider
+Binding Spider
 ======
 
 Dynamically map open windows to function keys for easy access. Avoids having to alt-tab through numerous windows to reach commonly used windows (at present), like the document editor or browser. 
@@ -27,5 +27,4 @@ Can quickly assign a pattern related to the task at hand and avoid getting lost 
 
 Core functionality works and solution alleviates the problem addressed.
 
-* Note if the title of the mapped window changes and no longer includes the original name, the spider fetches nothing.
-* Possible change to allow interactive title setting, for now edit /tmp/KEY.binding directly if needed.
+* Uses /tmp/KEY.binding to store bindings, kept in Hexadecimal identity format "wmctrl" window manager style.

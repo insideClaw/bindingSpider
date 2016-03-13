@@ -22,14 +22,16 @@ def triggerWindowOnKey (button):
 	'''Given a keybind button, raises the window mapped to it (if any)'''
 	saveFile = open(destDir + button + ".binding", 'r')
 	desiredWindow = saveFile.read()
-	raiseWindowCmd = "wmctrl -a " + desiredWindow
+	raiseWindowCmd = "wmctrl -i -a " + desiredWindow
 	subprocess.Popen(raiseWindowCmd, shell=True, stdout=subprocess.PIPE)
 
 # Allows for being called as both a setter and a getter, defined with ARG1
 if args.mode == "set":
-	activeWindow = subprocess.Popen("xdotool getactivewindow getwindowname", shell=True, stdout=subprocess.PIPE).stdout.read().strip()
-	saveWindowToKey(activeWindow, args.button)
-	messageCmd  = "notify-send 'Binding set.' '" + args.button + " -> " + activeWindow + "'"
+	activeWindowName = subprocess.Popen("xdotool getactivewindow getwindowname", shell=True, stdout=subprocess.PIPE).stdout.read().strip()
+	activeWindowID = subprocess.Popen("wmctrl -lp | grep $(xprop -root | grep _NET_ACTIVE_WINDOW | head -1 | \
+		awk '{print $5}' | sed 's/,//' | sed 's/^0x/0x0/') | cut -f1 -d ' '", shell=True, stdout=subprocess.PIPE).stdout.read().strip()
+	saveWindowToKey(activeWindowID, args.button)
+	messageCmd  = "notify-send 'Binding set.' '" + args.button + " -> " + activeWindowName + "'"
 	subprocess.Popen(messageCmd, shell=True, stdout=subprocess.PIPE)
 
 elif args.mode == "trigger":
